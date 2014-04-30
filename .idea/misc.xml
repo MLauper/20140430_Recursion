@@ -4,15 +4,10 @@
     <module2copyright />
   </component>
   <component name="ProjectKey">
-    <option name="state" value="project://586ad53c-d2b2-4665-8f4c-22694495b516" />
+    <option name="state" value="https://github.com/gBaw/20140430_Recursion.git" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
-  </component>
-  <component name="PyConsoleOptionsProvider">
-    <option name="myPythonConsoleState">
-      <console-settings />
-    </option>
   </component>
   <component name="masterDetails">
     <states>

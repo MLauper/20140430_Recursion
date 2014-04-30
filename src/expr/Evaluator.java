@@ -24,20 +24,26 @@ public class Evaluator
    public double getExpressionValue()
    {
       double value = getTermValue();
-      boolean done = false;
-      while (!done)
+
+      while (true)
       {
-         String next = tokenizer.peekToken();
+         String next = this.tokenizer.peekToken();
          if ("+".equals(next) || "-".equals(next))
          {
-            tokenizer.nextToken(); // Discard "+" or "-"
-            double value2 = getTermValue();
-            if ("+".equals(next)) value = value + value2;
-            else value = value - value2;
+            this.tokenizer.nextToken(); // Discard "+" or "-"
+            double rightValue = this.getTermValue();
+
+            if ("+".equals(next)){
+                value = value + rightValue;
+            }
+            else {
+                value = value - rightValue;
+            }
          }
-         else done = true;
+         else {
+             return value;
+         }
       }
-      return value;
    }
 
    /**
@@ -46,22 +52,41 @@ public class Evaluator
    */
    public double getTermValue()
    {
-      double value = getFactorValue();
-      boolean done = false;
-      while (!done)
+      double value = getPowerValue();
+      while (true)
       {
          String next = tokenizer.peekToken();
+
          if ("*".equals(next) || "/".equals(next))
          {
             tokenizer.nextToken();
-            double value2 = getFactorValue();
+            double value2 = getPowerValue();
             if ("*".equals(next)) value = value * value2;
             else value = value / value2;
          }
-         else done = true;
+         else {
+             return value;
+         }
       }
-      return value;
    }
+
+    public double getPowerValue()
+    {
+        double value = getFactorValue();
+        while (true)
+        {
+            String next = tokenizer.peekToken();
+            if ("^".equals(next))
+            {
+                tokenizer.nextToken();
+                double value2 = getFactorValue();
+                value = Math.pow(value,value2);
+            }
+            else {
+                return value;
+            }
+        }
+    }
 
    /**
       Evaluates the next factor found in the expression.
@@ -69,17 +94,17 @@ public class Evaluator
    */
    public double getFactorValue()
    {
-      double value;
       String next = tokenizer.peekToken();
       if ("(".equals(next))
       {
          tokenizer.nextToken(); // Discard "("
-         value = getExpressionValue();
+         double value = getExpressionValue();
          tokenizer.nextToken(); // Discard ")"
-      }
-      else
-         value = Integer.parseInt(tokenizer.nextToken());
-      return value;
-   }
 
+         return value;
+      }
+      else {
+          return Integer.parseInt(tokenizer.nextToken());
+      }
+   }
 }
